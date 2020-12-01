@@ -1,0 +1,5 @@
+projecteurekaserver  服务注册中心 eureka:8761
+projectdataservice   数据服务  8001
+projectviewservicefeign 视图服务 8012
+给视图服务加上断路器，检测数据服务是否可用
+http://localhost:8040/api-view/tfc/findPage

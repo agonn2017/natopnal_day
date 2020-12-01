@@ -1,0 +1,19 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8040
+spring:
+  application:
+    name: project-service-zuul
+zuul:
+  routes:
+    api-a:
+      path: /api-data/**
+      serviceId: PROJECT-DATA-SERVICE
+    api-b:
+      path: /api-view/**
+      serviceId: PROJECT-VIEW-SERVICE-FEIGN
+ sensitive-headers: Access-Control-Allow-Origin
+ ignored-headers: Access-Control-Allow-Origin,H-APP-Id,Token,APPToken

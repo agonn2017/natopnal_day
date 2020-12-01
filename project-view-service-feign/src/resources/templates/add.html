@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>products</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="http://localhost:8012/bots335/css/bootstrap.css" />
+    <script type="text/javascript" src="http://localhost:8012/js/jquery-2.1.1.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1">账号</div>
+            <div class="col-sm-2">
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="col-sm-1">密码</div>
+            <div class="col-sm-2">
+                <input type="text" id="password" name="password">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-center">
+                <button type="button" class="btn btn-danger" id="btnOk">
+                    <span class="glyphicon glyphicon-edit"></span>&nbsp;保存
+                </button>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $("document").ready(function(){
+        $("#btnOk").click(function(){
+            var username=$("#username").val();
+            var password=$("#password").val();
+            $.ajax({
+                type:"post",
+                url:"http://localhost:8040/api-view/tfc/add",
+                data:{
+                    username:username,
+                    password:password,
+                    createDate:"2020-04-10"
+                },
+                dataType:"JSON",
+                success:function(data){
+                    if(data>0){
+                        alert("保存成功!");
+                    }else{
+                        alert("保存失败!");
+                    }
+                },
+                error:function(){
+                    alert("对不起，出现未知错误！");
+                }
+            });
+        })
+    });
+
+</script>
+</html>

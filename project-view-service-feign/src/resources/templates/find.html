@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>products</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="http://localhost:8012/bots335/css/bootstrap.css" />
+    <script type="text/javascript" src="http://localhost:8012/js/jquery-2.1.1.js"></script>
+</head>
+<body>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1">姓名</div>
+        <div class="col-sm-2">
+            <input type="text" id="username" name="username" />
+        </div>
+
+        <div class="col-sm-3 text-right">
+            <button class="btn btn-info btn-xs" id="btnFind">
+                <span class="glyphicon glyphicon-search"></span> 查询
+            </button>
+            <a href="http://localhost:8040/api-view/tfc/addPage" class="btn btn-info btn-xs">
+                <span class="glyphicon glyphicon-plus"></span> 添加
+            </a>
+        </div>
+    </div>
+
+    <div  class="row">
+        <div class="col-sm-12">
+            <hr />
+        </div>
+    </div>
+
+    <div  class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-condensed table-hover">
+                <thead>
+                <tr class="success">
+                    <th>编号</th>
+                    <th>姓名</th>
+                    <th>密码</th>
+                    <th>日期</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="tb">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript">
+
+    //删除
+    function del(id){
+        $.ajax({
+            type:"post",
+            url:"http://localhost:8040/api-view/tfc/del",
+            data:{
+                id:id
+            },
+            dataType:"json",
+            success:function(data){
+                if(data>0){
+                    alert("删除成功！");
+                    location.href="http://localhost:8040/api-view/tfc/findPage";
+                }else{
+                    alert("删除失败！");
+                }
+            },
+            error:function(){
+                alert("aja,x错误！");
+            }
+        });
+    }
+
+    $("document").ready(function(){
+        $("#btnFind").click(function(){
+            var username=$("#username").val();
+            $.ajax({
+                type:"post",
+                url:"http://localhost:8040/api-view/tfc/find",
+                data:{
+                    username:username
+                },
+                dataType:"json",
+                success:function(data){
+                    var h="";
+                    $.each(data,function(aaa,bbb){
+                        h=h+"<tr>";
+                        h=h+"<td>"+bbb.id+"</td>";
+                        h=h+"<td>"+bbb.username+"</td>";
+                        h=h+"<td>"+bbb.password+"</td>";
+                        h=h+"<td>"+bbb.createDate+"</td>";
+                        h=h+"<td><button class='btn btn-info btn-xs' id='btnUpd' onclick=upd("+bbb.id+")>"
+                        h=h+"<span class='glyphicon glyphicon-pencil'></span> 修改"
+                        h=h+"</button>"
+                        h=h+"  <button class='btn btn-danger btn-xs' id='btnDel' onclick=del("+bbb.id+")>"
+                        h=h+"<span class='glyphicon glyphicon-remove'></span> 删除"
+                        h=h+"</button></td>";
+                        h=h+"</tr>";
+                    });
+                    $("#tb").html(h);
+                },
+                error:function(){
+                    alert("对不起，出现未知错误！");
+                }
+            });
+        })
+    });
+
+    function upd(id){
+        window.location.href="http://localhost:8040/api-view/tfc/updPage?id="+id;
+    }
+</script>
+</html>
