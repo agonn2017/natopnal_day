@@ -17,7 +17,8 @@ node{
      withSonarQubeEnv('SonarQube'){
         sh '''
             cd ${project_name}
-            ${scannerHome}/bin/sonar-scanner
+            /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar-scanner/bin/sonar-scanner
+            //${scannerHome}/bin/sonar-scanner
         '''
      }
   }
