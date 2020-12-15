@@ -16,8 +16,8 @@ node{
      //引用当前JenkinsSonarQube环境
      withSonarQubeEnv('SonarQube'){
         sh """
-            cd ${project_name }
-            $ {scannerHome } /bin/ sonar-scanner
+            cd ${project_name}
+            $ {scannerHome}/bin/sonar-scanner
         """
      }
   }
