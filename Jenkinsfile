@@ -15,10 +15,10 @@ node{
      def scannerHome = tool 'sonar-scanner'
      //引用当前JenkinsSonarQube环境
      withSonarQubeEnv('SonarQube'){
-        sh """
+        sh '''
             cd ${project_name}
-            $ {scannerHome}/bin/sonar-scanner
-        """
+            ${scannerHome}/bin/sonar-scanner
+        '''
      }
   }
  stage('项目部署'){
