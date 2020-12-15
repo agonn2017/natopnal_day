@@ -18,11 +18,7 @@ node{
         sh '''
             cd ${project_name}
             /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar-scanner/bin/sonar-scanner
-            //${scannerHome}/bin/sonar-scanner
         '''
      }
-  }
- stage('项目部署'){
-     echo '项目部署'
   }
 }
