@@ -7,7 +7,6 @@ def git_url="https://github.com/agonn2017/natopnal_day.git"
 node{
   def mvnHome
   stage('拉取代码'){
-     echo '拉取代码'
      checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
   }
  stage('代码审查'){
